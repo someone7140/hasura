@@ -1,0 +1,35 @@
+table:
+  name: account_users
+  schema: public
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - email
+        - gmail
+        - id
+        - name
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - email
+        - gmail
+        - name
+        - password
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        id:
+          _eq: X-Hasura-User-Id
+    comment: ""

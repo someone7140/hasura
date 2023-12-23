@@ -1,0 +1,1 @@
+- migrate は[Hasura Cloud からローカル環境（Docker）へ移行する手順](https://zenn.dev/algorithms/articles/7d6b09ac11b403)、[Hasura なら migration も 10 倍楽なんだぜ？知ってた？](https://qiita.com/toto_inu/items/6546af904ba3d1597c70)の記事を参考にする。
