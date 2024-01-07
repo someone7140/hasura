@@ -1,6 +1,16 @@
 table:
   name: account_users
   schema: public
+configuration:
+  column_config:
+    image_url:
+      custom_name: imageUrl
+    user_setting_id:
+      custom_name: userSettingId
+  custom_column_names:
+    image_url: imageUrl
+    user_setting_id: userSettingId
+  custom_root_fields: {}
 select_permissions:
   - role: user
     permission:
