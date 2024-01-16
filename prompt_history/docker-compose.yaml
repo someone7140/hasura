@@ -5,10 +5,14 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5433:5433"
+    command: -p 5433
   graphql-engine:
-    image: hasura/graphql-engine:v2.36.0
+    image: hasura/graphql-engine:v2.36.1
     ports:
       - "8080:8080"
     restart: always
@@ -33,7 +37,7 @@ services:
       data-connector-agent:
         condition: service_healthy
   data-connector-agent:
-    image: hasura/graphql-data-connector:v2.36.0
+    image: hasura/graphql-data-connector:v2.36.1
     restart: always
     ports:
       - 8081:8081

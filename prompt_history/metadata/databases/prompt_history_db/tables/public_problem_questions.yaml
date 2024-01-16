@@ -1,0 +1,62 @@
+table:
+  name: problem_questions
+  schema: public
+configuration:
+  column_config:
+    account_user_id:
+      custom_name: acccountUserId
+    theme_id:
+      custom_name: themeId
+  custom_column_names:
+    account_user_id: acccountUserId
+    theme_id: themeId
+  custom_root_fields: {}
+object_relationships:
+  - name: account_user
+    using:
+      foreign_key_constraint_on: account_user_id
+  - name: problem_theme
+    using:
+      foreign_key_constraint_on: theme_id
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        account_user_id: x-hasura-User-Id
+      columns:
+        - account_user_id
+        - contents
+        - id
+        - theme_id
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - contents
+        - id
+        - theme_id
+      filter:
+        account_user_id:
+          _eq: X-Hasura-User-Id
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - contents
+        - id
+        - theme_id
+      filter:
+        account_user_id:
+          _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        account_user_id:
+          _eq: X-Hasura-User-Id
+    comment: ""

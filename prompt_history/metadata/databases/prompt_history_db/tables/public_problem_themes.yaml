@@ -1,57 +1,57 @@
 table:
-  name: account_users
+  name: problem_themes
   schema: public
 configuration:
   column_config:
-    image_url:
-      custom_name: imageUrl
-    user_setting_id:
-      custom_name: userSettingId
+    account_user_id:
+      custom_name: accountUserId
   custom_column_names:
-    image_url: imageUrl
-    user_setting_id: userSettingId
+    account_user_id: accountUserId
   custom_root_fields: {}
+object_relationships:
+  - name: account_user
+    using:
+      foreign_key_constraint_on: account_user_id
 array_relationships:
   - name: problem_questions
     using:
       foreign_key_constraint_on:
-        column: account_user_id
+        column: theme_id
         table:
           name: problem_questions
           schema: public
-  - name: problem_themes
-    using:
-      foreign_key_constraint_on:
-        column: account_user_id
-        table:
-          name: problem_themes
-          schema: public
+insert_permissions:
+  - role: user
+    permission:
+      check: {}
+      set:
+        account_user_id: x-hasura-User-Id
+      columns:
+        - account_user_id
+        - description
+        - id
+        - title
+    comment: ""
 select_permissions:
   - role: user
     permission:
       columns:
-        - email
-        - gmail
-        - image_url
-        - name
-        - password
-        - user_setting_id
+        - description
+        - id
+        - title
       filter:
-        id:
+        account_user_id:
           _eq: X-Hasura-User-Id
     comment: ""
 update_permissions:
   - role: user
     permission:
       columns:
-        - email
-        - gmail
-        - image_url
-        - name
-        - password
-        - user_setting_id
+        - description
+        - id
+        - title
       filter:
-        id:
+        account_user_id:
           _eq: X-Hasura-User-Id
       check: null
     comment: ""
@@ -59,6 +59,6 @@ delete_permissions:
   - role: user
     permission:
       filter:
-        id:
+        account_user_id:
           _eq: X-Hasura-User-Id
     comment: ""
