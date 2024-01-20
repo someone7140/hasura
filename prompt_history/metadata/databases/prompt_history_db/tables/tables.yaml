@@ -1,3 +1,4 @@
 - "!include public_account_users.yaml"
+- "!include public_problem_answers.yaml"
 - "!include public_problem_questions.yaml"
 - "!include public_problem_themes.yaml"

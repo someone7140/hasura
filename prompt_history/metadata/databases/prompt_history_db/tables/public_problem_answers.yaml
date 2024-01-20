@@ -1,56 +1,75 @@
 table:
-  name: problem_questions
+  name: problem_answers
   schema: public
 configuration:
   column_config:
     account_user_id:
       custom_name: acccountUserId
-    create_date_time:
-      custom_name: createDateTime
+    ai_service:
+      custom_name: aiService
+    answer_date_time:
+      custom_name: answerDateTime
+    question_id:
+      custom_name: questionId
     theme_id:
       custom_name: themeId
   custom_column_names:
     account_user_id: acccountUserId
-    create_date_time: createDateTime
+    ai_service: aiService
+    answer_date_time: answerDateTime
+    question_id: questionId
     theme_id: themeId
   custom_root_fields: {}
 object_relationships:
   - name: account_user
     using:
-      foreign_key_constraint_on: account_user_id
-  - name: problem_theme
-    using:
-      foreign_key_constraint_on: theme_id
-array_relationships:
-  - name: problem_answers
+      manual_configuration:
+        column_mapping:
+          account_user_id: id
+        insertion_order: null
+        remote_table:
+          name: account_users
+          schema: public
+  - name: problem_questions
     using:
       manual_configuration:
         column_mapping:
-          id: question_id
+          question_id: id
         insertion_order: null
         remote_table:
-          name: problem_answers
+          name: problem_questions
+          schema: public
+  - name: problem_themes
+    using:
+      manual_configuration:
+        column_mapping:
+          theme_id: id
+        insertion_order: null
+        remote_table:
+          name: problem_themes
           schema: public
 insert_permissions:
   - role: user
     permission:
       check: {}
-      set:
-        account_user_id: x-hasura-User-Id
       columns:
         - account_user_id
+        - ai_service
         - contents
-        - create_date_time
         - id
+        - question_id
         - theme_id
+        - answer_date_time
     comment: ""
 select_permissions:
   - role: user
     permission:
       columns:
+        - ai_service
+        - answer_date_time
         - contents
-        - create_date_time
         - id
+        - question_id
         - theme_id
       filter:
         account_user_id:
@@ -61,8 +80,11 @@ update_permissions:
   - role: user
     permission:
       columns:
+        - ai_service
+        - answer_date_time
         - contents
         - id
+        - question_id
         - theme_id
       filter:
         account_user_id:

@@ -12,6 +12,13 @@ configuration:
     user_setting_id: userSettingId
   custom_root_fields: {}
 array_relationships:
+  - name: problem_answers
+    using:
+      foreign_key_constraint_on:
+        column: account_user_id
+        table:
+          name: problem_answers
+          schema: public
   - name: problem_questions
     using:
       foreign_key_constraint_on:

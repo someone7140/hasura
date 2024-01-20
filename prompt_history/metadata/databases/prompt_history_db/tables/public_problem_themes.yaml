@@ -5,14 +5,26 @@ configuration:
   column_config:
     account_user_id:
       custom_name: accountUserId
+    create_date_time:
+      custom_name: createDateTime
   custom_column_names:
     account_user_id: accountUserId
+    create_date_time: createDateTime
   custom_root_fields: {}
 object_relationships:
   - name: account_user
     using:
       foreign_key_constraint_on: account_user_id
 array_relationships:
+  - name: problem_answers
+    using:
+      manual_configuration:
+        column_mapping:
+          id: theme_id
+        insertion_order: null
+        remote_table:
+          name: problem_answers
+          schema: public
   - name: problem_questions
     using:
       foreign_key_constraint_on:
@@ -28,6 +40,7 @@ insert_permissions:
         account_user_id: x-hasura-User-Id
       columns:
         - account_user_id
+        - create_date_time
         - description
         - id
         - title
@@ -36,12 +49,14 @@ select_permissions:
   - role: user
     permission:
       columns:
+        - create_date_time
         - description
         - id
         - title
       filter:
         account_user_id:
           _eq: X-Hasura-User-Id
+      allow_aggregations: true
     comment: ""
 update_permissions:
   - role: user
